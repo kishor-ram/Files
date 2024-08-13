@@ -6,37 +6,50 @@ class CurrencyConverter extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double result = 0;
+    final TextEditingController textEditingController = TextEditingController();
     final border = OutlineInputBorder(
         borderSide: const BorderSide(
-            color: Colors.white, width: 2.0, style: BorderStyle.solid),
+            color: Color.fromARGB(234, 255, 179, 72),
+            width: 2.0,
+            style: BorderStyle.solid),
         borderRadius: BorderRadius.circular(15));
+
     return Scaffold(
-        backgroundColor: Color.fromRGBO(50, 151, 52, 1),
+        backgroundColor: const Color.fromRGBO(255, 255, 255, 1),
+        appBar: AppBar(
+          backgroundColor: const Color.fromRGBO(24, 228, 255, 1),
+          elevation: 0,
+          title: const Text('Currency Converter'),
+          centerTitle: true,
+        ),
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Text(
-                '0',
-                style: TextStyle(
+              Text(
+                result.toString(),
+                style: const TextStyle(
                   fontSize: 55,
                   fontWeight: FontWeight.bold,
-                  color: Colors.white,
+                  color: Color.fromARGB(255, 85, 85, 85),
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: TextField(
+                  controller: textEditingController,
                   style: const TextStyle(
-                    color: Colors.white,
+                    color: Color.fromARGB(255, 0, 0, 0),
                   ),
                   decoration: InputDecoration(
-                    hintText: 'Please emter the amount in USD',
-                    hintStyle: const TextStyle(color: Colors.white),
+                    hintText: 'Please enter the amount in USD',
+                    hintStyle: const TextStyle(
+                        color: Color.fromARGB(255, 117, 117, 117)),
                     prefixIcon: const Icon(Icons.monetization_on_outlined),
-                    prefixIconColor: Colors.white,
+                    prefixIconColor: const Color.fromARGB(255, 117, 117, 117),
                     filled: true,
-                    fillColor: Colors.white30,
+                    fillColor: Color.fromARGB(77, 255, 255, 255),
                     focusedBorder: border,
                     enabledBorder: border,
                   ),
@@ -44,18 +57,28 @@ class CurrencyConverter extends StatelessWidget {
                       decimal: true, signed: true),
                 ),
               ),
-              TextButton(
-                  onPressed: () {
-                    if (kDebugMode) {
-                      print('Button Clicked');
-                    }
-                  },
-                  style: const ButtonStyle(
-                    backgroundColor: MaterialStatePropertyAll(Colors.tealAccent),
-                    foregroundColor: MaterialStatePropertyAll(Colors.white12)
-
-                  ),
-                  child: const Text('Convert'))
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ElevatedButton(
+                    onPressed: () {
+                      result = double.parse(textEditingController.text)*81;
+                    },
+                    style: ButtonStyle(
+                        backgroundColor: const WidgetStatePropertyAll(
+                            Color.fromARGB(255, 89, 232, 232)),
+                        foregroundColor: const WidgetStatePropertyAll(
+                            Color.fromARGB(255, 255, 255, 255)),
+                        minimumSize: const WidgetStatePropertyAll(
+                            Size(double.infinity, 50)),
+                        shape: WidgetStatePropertyAll(RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10)))),
+                    child: const Text(
+                      'Convert',
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Color.fromARGB(255, 0, 0, 0)),
+                    )),
+              )
             ],
           ),
         ));
